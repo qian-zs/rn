@@ -1,12 +1,25 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-const HomeScreen = () => {
+const HomeScreen: React.FC<{ navigation: any; }> = ({ navigation }) => {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Home Screen</Text>
+      <Button title='Go to Details' onPress={() => navigation.navigate('Details')} />
+    </View>
+  );
+};
+
+const DetailsScreen: React.FC<{ navigation: any; }> = ({ navigation }) => {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Details Screen</Text>
+      <Button
+        title="Go to Details... again"
+        onPress={() => navigation.push('Details')}
+      />
     </View>
   );
 };
@@ -17,7 +30,8 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name='Home' component={HomeScreen} />
+        <Stack.Screen name='Home' component={HomeScreen} options={{ title: 'Overview' }}></Stack.Screen>
+        <Stack.Screen name='Details' component={DetailsScreen}></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );
